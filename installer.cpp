@@ -6,21 +6,10 @@ Installer::Installer(QWidget *parent)
     , ui(new Ui::Installer)
 {
     ui->setupUi(this);
-
-    switch (activeUI) {
-    case uiID::INTRO:
-        ui->introFrame->show();
-        ui->installationLocationFrame->hide();
-        break;
-    case uiID::INSTALLATION_LOCATION:
-        ui->introFrame->hide();
-        ui->installationLocationFrame->show();
-        break;
-    case uiID::CONFIRMATION:
-        break;
-    default:
-        break;
-    }
+    Installer::loadUI(navigateUI::STAY);
+    connect(ui->nextBtn, &QPushButton::clicked, this, &Installer::onNextClick);
+    connect(ui->BackBtn, &QPushButton::clicked, this, &Installer::onPreviousClick);
+    connect(ui->cancelBtn, &QPushButton::clicked, this,&Installer::closeInstaller);
 }
 
 Installer::~Installer()
